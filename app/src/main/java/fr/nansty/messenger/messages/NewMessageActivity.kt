@@ -1,13 +1,12 @@
-package fr.nansty.messenger
+package fr.nansty.messenger.messages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,9 +15,16 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
+import fr.nansty.messenger.R
+import fr.nansty.messenger.models.User
 
 
 class NewMessageActivity : AppCompatActivity() {
+
+    companion object{
+        val USER_KEY = "USER_KEY"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
@@ -45,7 +51,20 @@ class NewMessageActivity : AppCompatActivity() {
                         adapter.add(UserItem(user))
                     }
                 }
+
+                adapter.setOnItemClickListener { item, view ->
+                    val userItem = item as UserItem
+                    val intent = Intent(view.context, ChatLogActivity::class.java)
+                    //intent.putExtra(USER_KEY, userItem.user.username)
+                    intent.putExtra(USER_KEY, userItem.user)
+                    startActivity(intent)
+
+                    finish()
+                }
+
                 findViewById<RecyclerView>(R.id.recyclerview_newmessage).adapter = adapter
+
+
             }
 
             override fun onCancelled(error: DatabaseError) {

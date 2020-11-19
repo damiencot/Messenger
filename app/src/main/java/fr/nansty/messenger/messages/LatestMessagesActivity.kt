@@ -1,4 +1,4 @@
-package fr.nansty.messenger
+package fr.nansty.messenger.messages
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
+import fr.nansty.messenger.R
+import fr.nansty.messenger.registerlogin.RegisterActivity
 
 class LatestMessagesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

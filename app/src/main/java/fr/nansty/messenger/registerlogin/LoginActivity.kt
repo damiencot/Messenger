@@ -1,4 +1,4 @@
-package fr.nansty.messenger
+package fr.nansty.messenger.registerlogin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import fr.nansty.messenger.R
 
 class LoginActivity : AppCompatActivity() {
 

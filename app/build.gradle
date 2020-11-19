@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -30,6 +31,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+
 }
 
 dependencies {
@@ -62,3 +65,11 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+
+android {
+    androidExtensions {
+        experimental = true
+    }
+}

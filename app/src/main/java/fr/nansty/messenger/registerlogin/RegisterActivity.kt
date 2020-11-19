@@ -1,4 +1,4 @@
-package fr.nansty.messenger
+package fr.nansty.messenger.registerlogin
 
 import android.app.Activity
 import android.content.Intent
@@ -12,13 +12,15 @@ import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import de.hdodenhof.circleimageview.CircleImageView
-import org.w3c.dom.Text
+import fr.nansty.messenger.R
+import fr.nansty.messenger.messages.LatestMessagesActivity
+import fr.nansty.messenger.models.User
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
     lateinit var username: TextView
+    var selectedPhotoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    var selectedPhotoUri: Uri? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -161,8 +162,3 @@ class RegisterActivity : AppCompatActivity() {
 
 }
 
-class User(val uid: String, val username: String, val profileImageUrl: String)
-{
-    constructor() : this("","","")
-
-}

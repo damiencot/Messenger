@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1045718217162",
+    "firebase_url": "https://kotlinmessenger-51ce5.firebaseio.com",
+    "project_id": "kotlinmessenger-51ce5",
+    "storage_bucket": "kotlinmessenger-51ce5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045718217162:android:788807bbbcf1b15e9bdf33",
+        "android_client_info": {
+          "package_name": "fr.nansty.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045718217162-j4fclla1e3rctt9d5crs9hevjo6gjs23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjvyGa3k6gLueE3CSoaRzs8e3anGJZmug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045718217162-j4fclla1e3rctt9d5crs9hevjo6gjs23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

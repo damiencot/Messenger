@@ -1,64 +1,72 @@
 package fr.nansty.messenger.registerlogin
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
+import android.view.View
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import fr.nansty.messenger.R
 import fr.nansty.messenger.messages.LatestMessagesActivity
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
+
+    private val TAG = LoginActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.abs_layout)
+        supportActionBar!!.elevation = 0.0f
 
-        findViewById<Button>(R.id.login_button_login).setOnClickListener {
-//            val email = findViewById<TextView>(R.id.email_edittext_login).text.toString()
-//            val password = findViewById<TextView>(R.id.password_edittext_login).text.toString()
-//
-//            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener {
-//                    if (!it.isSuccessful) return@addOnCompleteListener
-//                    Log.d("Main", "Successful signed user with uid: ${it.result?.user?.uid}")
-//                }
-//                .addOnFailureListener{
-//                    Log.d("Main", "Failed to signed user: ${it.message}")
-//                }
+
+
+        login_button_login.setOnClickListener {
             performLogin()
-
         }
 
-        findViewById<TextView>(R.id.back_to_register_textview).setOnClickListener {
+        back_to_register_textview.setOnClickListener {
             finish()
+            overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left)
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left)
+    }
+
     private fun performLogin() {
-        val email = findViewById<TextView>(R.id.email_edittext_login).text.toString()
-        val password = findViewById<TextView>(R.id.password_edittext_login).text.toString()
+        val email = email_edittext_login.text.toString()
+        val password = password_edittext_login.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill out email/pw.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             return
         }
+
+        back_to_register_textview.visibility = View.GONE
+        loading_view.visibility = View.VISIBLE
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (!it.isSuccessful) return@addOnCompleteListener
-
-                Log.d("Login", "Successfully logged in: ${it.result!!.user!!.uid}")
+                Log.d(TAG, "Successfully logged in: ${it.result!!.user?.uid}")
 
                 val intent = Intent(this, LatestMessagesActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
+                overridePendingTransition(R.anim.enter, R.anim.exit)
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to log in: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
+
+                back_to_register_textview.visibility = View.VISIBLE
+                loading_view.visibility = View.GONE
             }
     }
 }

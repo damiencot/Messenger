@@ -105,7 +105,7 @@ class RegisterActivity : AppCompatActivity() {
                 Log.d(TAG, "Failed to create user: ${it.message}")
                 loading_view.visibility = View.GONE
                 already_have_account_text_view.visibility = View.VISIBLE
-                Toast.makeText(this, "${it.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "${it.message}", Toast.LENGTH_LONG).show()
             }
     }
 
@@ -136,14 +136,15 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun saveUserToFirebaseDatabase(profileImageUrl: String?) {
-        val uid = FirebaseAuth.getInstance().uid ?: return
+        val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
         val user = if (profileImageUrl == null) {
-            User(uid, name_edittext_register.text.toString(), null)
+            User(uid, name_edittext_register.text.toString(), profileImageUrl)
         } else {
             User(uid, name_edittext_register.text.toString(), profileImageUrl)
         }
+        
 
         ref.setValue(user)
             .addOnSuccessListener {
